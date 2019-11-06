@@ -18,3 +18,22 @@ class Flashsale(BaseModel):
 
     def __str__(self):
         return self.product_descriptions
+
+class Client(models.Model):
+    client_name = models.CharField(max_length=100)
+    phone = models.IntegerField()
+    is_registered = models.BooleanField(default=False)
+    is_loggedin = models.BooleanField(default=False)
+
+    def __str__(self):
+        return self.client_name
+
+class TrackedProduct(BaseModel):
+    client = models.ForeignKey(Client, on_delete=models.CASCADE, name='client')
+    tracked_product_name = models.CharField(max_length=200)
+
+    def __str__(self):
+        return self.tracked_product_name
+
+
+        # [{"model": "bestdeals.trackedproduct", "pk": 15, "fields": ''{"tracked_product_name": "watch"}}]

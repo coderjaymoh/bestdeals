@@ -1,0 +1,318 @@
+<!-- {% load static %} -->
+<!doctype html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <!-- <link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}"> -->
+    
+
+    <title>Be informed about the best deals on online shops</title>
+  </head>
+  <body>
+
+    <!-- style nav -->
+    <nav class="navbar navbar-light">
+        <span class="navbar-brand mb-0 h1"><b>BestDeals</b></span>
+    </nav>
+
+    <section>
+      <div class="main">
+          <div class="card description">
+              <div class="card-body">
+                <p class="card-text">The festive seasons is here! And as we all know it comes with amazing product deals. <b><i>BestDeals</i></b> ensures the best deals on online stores dont pass you.
+                Get notified when a there is an amazing offer on your favourite product.
+              </p>
+              <p><b>How it works</b><br>
+                Just enter a name of a product you would like to track and 
+                then sit and wait whenever there is an amazing deal on the product we will notify you 💬
+              </p>
+              </div>
+            </div>
+          <div class="row">
+              <div class="col-sm-7">
+                <div class="card">
+                  <div class="card-body">
+                    <h5 class="card-title">🛒 Add products to track</h5>
+                    {% csrf_token %}
+                    <form action="" method="POST" id="track-product-form">
+                    <input type="search" class="form-control product" name="product" id="product" placeholder="Eg. Watch, shoes" required>
+                    <button type="submit" id="track-product-button" class="btn track-product-button">Track</button>
+                  </form>
+                  </div>
+                </div>
+              </div>
+              <div class="col-sm-5">
+                <div class="card">
+                  <div class="card-body">
+                    <h5 class="card-title">📋 Currently Tracking</h5>
+                    <p class="card-text" id="show"></p>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="card ads">
+                <div class="card-body">
+                  <h5 class="card-title">🔥 Amazing deals</h5>
+                </div>
+              </div>
+        </div>
+
+    </section>
+
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script
+  src="https://code.jquery.com/jquery-3.4.1.js"
+  integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU="
+  crossorigin="anonymous"></script>
+    <!-- <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script> -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+  </body>
+
+  <style>
+      nav{
+        background-color: rgb(0, 177, 131);
+      }
+
+      .main{
+        margin-top: 0px;
+      }
+
+      .description{
+        border: none;
+      }
+
+      .row {
+        margin: 0 auto;
+      }
+
+      .explanation{
+        font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+        text-align: center;
+      }
+
+      .product {
+        border: none;
+        border-bottom: solid 2px gray;
+        width: 100%;
+      }
+
+      .product:hover {
+        border: none;
+        outline: 0px !important;
+        -webkit-appearance:none;
+        box-shadow: none !important;
+        border-bottom: solid 2px rgb(0, 177, 131);
+      }
+
+      .track-product-button{
+        margin-top: 20px;
+        float: right;
+        border: solid 2px rgb(0, 136, 115) ;
+        color: rgb(0, 136, 115);
+    }
+
+    .track-product-button:hover{
+        color: white;
+        background-color: rgb(0, 189, 134);
+        border: solid 2px rgb(0, 189, 134) ;
+    }
+
+    .ads{
+      margin-top: 50px;
+      border: none;
+    }
+  </style>
+
+  <script>
+     
+     $(function() {
+
+
+// Submit post on submit
+$('#track-product-form').on('submit', function(event){
+    event.preventDefault();
+    console.log("form submitted!")  // sanity check
+    create_post();
+});
+
+// AJAX for posting
+function create_post() {
+    console.log("create post is working!") // sanity check
+    $.ajax({
+        url : "", // the endpoint
+        type : "POST", // http method
+        data : { the_post : $('#product').val() }, // data sent with the post request
+        // handle a successful response
+        success : function(json) {
+            $('#product').val(''); // remove the value from the input
+            console.log(json); // log the returned json to the console
+            $("#show").prepend("<strong>👉 "+json.item+"</strong>");
+            console.log("success"); // another sanity check
+        },
+        // handle a non-successful response
+        error : function(xhr,errmsg,err) {
+            $('#results').html("<div class='alert-box alert radius' data-alert>Oops! We have encountered an error: "+errmsg+
+                " <a href='#' class='close'>&times;</a></div>"); // add the error to the dom
+            console.log(xhr.status + ": " + xhr.responseText); // provide a bit more info about the error to the console
+        }
+    });
+};
+
+
+// This function gets cookie with a given name
+function getCookie(name) {
+    var cookieValue = null;
+    if (document.cookie && document.cookie != '') {
+        var cookies = document.cookie.split(';');
+        for (var i = 0; i < cookies.length; i++) {
+            var cookie = jQuery.trim(cookies[i]);
+            // Does this cookie string begin with the name we want?
+            if (cookie.substring(0, name.length + 1) == (name + '=')) {
+                cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                break;
+            }
+        }
+    }
+    return cookieValue;
+}
+var csrftoken = getCookie('csrftoken');
+
+/*
+The functions below will create a header with csrftoken
+*/
+
+function csrfSafeMethod(method) {
+    // these HTTP methods do not require CSRF protection
+    return (/^(GET|HEAD|OPTIONS|TRACE)$/.test(method));
+}
+function sameOrigin(url) {
+    // test that a given url is a same-origin URL
+    // url could be relative or scheme relative or absolute
+    var host = document.location.host; // host + port
+    var protocol = document.location.protocol;
+    var sr_origin = '//' + host;
+    var origin = protocol + sr_origin;
+    // Allow absolute or scheme relative URLs to same origin
+    return (url == origin || url.slice(0, origin.length + 1) == origin + '/') ||
+        (url == sr_origin || url.slice(0, sr_origin.length + 1) == sr_origin + '/') ||
+        // or any other URL that isn't scheme relative or absolute i.e relative.
+        !(/^(\/\/|http:|https:).*/.test(url));
+}
+
+$.ajaxSetup({
+    beforeSend: function(xhr, settings) {
+        if (!csrfSafeMethod(settings.type) && sameOrigin(settings.url)) {
+            // Send the token to same-origin, relative URLs only.
+            // Send the token only if the method warrants CSRF protection
+            // Using the CSRFToken value acquired earlier
+            xhr.setRequestHeader("X-CSRFToken", csrftoken);
+        }
+    }
+});
+
+});
+
+
+
+
+
+//   $(function() {
+
+
+// // This function gets cookie with a given name
+// function getCookie(name) {
+//     var cookieValue = null;
+//     if (document.cookie && document.cookie != '') {
+//         var cookies = document.cookie.split(';');
+//         for (var i = 0; i < cookies.length; i++) {
+//             var cookie = jQuery.trim(cookies[i]);
+//             // Does this cookie string begin with the name we want?
+//             if (cookie.substring(0, name.length + 1) == (name + '=')) {
+//                 cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+//                 break;
+//             }
+//         }
+//     }
+//     return cookieValue;
+// }
+// var csrftoken = getCookie('csrftoken');
+
+// /*
+// The functions below will create a header with csrftoken
+// */
+
+// function csrfSafeMethod(method) {
+//     // these HTTP methods do not require CSRF protection
+//     return (/^(GET|HEAD|OPTIONS|TRACE)$/.test(method));
+// }
+// function sameOrigin(url) {
+//     // test that a given url is a same-origin URL
+//     // url could be relative or scheme relative or absolute
+//     var host = document.location.host; // host + port
+//     var protocol = document.location.protocol;
+//     var sr_origin = '//' + host;
+//     var origin = protocol + sr_origin;
+//     // Allow absolute or scheme relative URLs to same origin
+//     return (url == origin || url.slice(0, origin.length + 1) == origin + '/') ||
+//         (url == sr_origin || url.slice(0, sr_origin.length + 1) == sr_origin + '/') ||
+//         // or any other URL that isn't scheme relative or absolute i.e relative.
+//         !(/^(\/\/|http:|https:).*/.test(url));
+// }
+
+// $.ajaxSetup({
+//     beforeSend: function(xhr, settings) {
+//         if (!csrfSafeMethod(settings.type) && sameOrigin(settings.url)) {
+//             // Send the token to same-origin, relative URLs only.
+//             // Send the token only if the method warrants CSRF protection
+//             // Using the CSRFToken value acquired earlier
+//             xhr.setRequestHeader("X-CSRFToken", csrftoken);
+//         }
+//     }
+// });
+
+// });
+
+// // AJAX for posting
+// function create_post() {
+//     console.log("create post is working!") // sanity check
+//     $.ajax({
+//         url : "", // the endpoint
+//         type : "POST", // http method
+//         data : { the_post : $('#product').val() }, // data sent with the post request
+
+//         // handle a successful response
+//         success : function(json) {
+//             $('#product').val(''); // remove the value from the input
+//             console.log(json); // log the returned json to the console
+//             console.log("success"); // another sanity check
+//         },
+
+//         // handle a non-successful response
+//         error : function(xhr,errmsg,err) {
+//             $('#results').html("<div class='alert-box alert radius' data-alert>Oops! We have encountered an error: "+errmsg+
+//                 " <a href='#' class='close'>&times;</a></div>"); // add the error to the dom
+//             console.log(xhr.status + ": " + xhr.responseText); // provide a bit more info about the error to the console
+//         }
+//     });
+
+    
+// };
+
+
+//     // Submit post on submit
+//     $('#track-product-form').on('submit', function(event){
+//     event.preventDefault();
+//     console.log("form submitted!")  // sanity check
+//     create_post();
+// });
+
+
+  </script>
+</html>
