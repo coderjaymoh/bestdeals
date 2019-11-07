@@ -2,3 +2,4 @@
 venv/
 chromedriver
 migrations/
+__pycache__/

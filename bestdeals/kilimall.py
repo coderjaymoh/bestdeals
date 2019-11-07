@@ -3,7 +3,7 @@ from bestdeals.models import Flashsale
 import pprint
 
 class Scrape:
-    driver = webdriver.Chrome('/home/jaymoh/projects/personal/selenium/bestdeals/chromedriver')
+    # driver = webdriver.Chrome('/home/jaymoh/projects/personal/selenium/bestdeals/chromedriver')
 
     # scraped and foomatted
     def get_flashsales(self):
@@ -23,7 +23,6 @@ class Scrape:
             formatted_flashsale_products.append(each.split('\n'))
 
         # pprint.pprint(formatted_flashsale_products)
-        driver.close()
 
         return formatted_flashsale_products
 
@@ -33,6 +32,8 @@ class Scrape:
                 products_left = each[1].split()[0].replace(',',''),
                 product_price = each[2].split()[1].replace(',',''),
                 cash_saved = each[3].split()[2].replace(',','')
+
+                print(product_price,products_left,cash_saved)
 
                 # print(product_price,products_left,cash_saved)
                 # flashsales_save = Flashsale(

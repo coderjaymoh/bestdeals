@@ -1,3 +1,37 @@
 nav{
     background-color: rgb(0, 177, 131);
 }
+
+.main {
+    height: 300px;
+    position: relative;
+  }
+
+  .input-container{
+    width: 50%;
+    margin: 0;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    -ms-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%);
+  }
+
+  #search_product {
+    border: none;
+    border-bottom: solid 2px gray;
+    width: 50%;
+  }
+
+  #search_product:focus {
+    border: none;
+    outline:0px !important;
+    -webkit-appearance:none;
+    box-shadow: none !important;
+    border-bottom: solid 2px rgb(0, 177, 131);
+  }
+
+  #submit{
+    padding: 3px 7px 3px 7px;
+    border-color: rgb(0, 136, 115);
+  }

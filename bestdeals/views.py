@@ -3,7 +3,6 @@ from django.http import JsonResponse
 from django.core import serializers
 from bestdeals.kilimall import Scrape
 from bestdeals.models import Flashsale, Client, TrackedProduct
-from bestdeals.forms import ClientForm
 import json
 import pprint
 
@@ -24,7 +23,7 @@ def home(request):
 
         # Get previously stored tracked products
         tracked_products = TrackedProduct.objects.all()
-        jsoned_data = serializers.serialize('json', list(tracked_products.tracked_product_name), fields=('tracked_product_name',))
+        jsoned_data = serializers.serialize('json', list(tracked_products), fields=('tracked_product_name',))
         pprint.pprint(jsoned_data)
 
         context = {
@@ -67,16 +66,6 @@ def home(request):
 
 def signup(request):
     if request.method == 'POST':
-        form = ClientForm(request.POST or None)
-        if form.is_valid:
-            form.save()
-            
-            return redirect('signup')
-        
-        else:
-            return redirect('home')
-
-    else:
-        form = ClientForm
-
-    return render(request, 'signup.html', {'form': form})
+        print(request.POST)
+    
+    return render(request, 'signup.html', )

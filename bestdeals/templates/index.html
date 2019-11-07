@@ -16,7 +16,7 @@
   <body>
 
     <!-- style nav -->
-    <nav class="navbar navbar-light">
+    <nav class="navbar">
         <span class="navbar-brand mb-0 h1"><b>BestDeals</b></span>
     </nav>
 
@@ -35,7 +35,7 @@
             </div>
           <div class="row">
               <div class="col-sm-7">
-                <div class="card">
+                <div class="card add-product-card">
                   <div class="card-body">
                     <h5 class="card-title">🛒 Add products to track</h5>
                     {% csrf_token %}
@@ -45,6 +45,62 @@
                   </form>
                   </div>
                 </div>
+                <div class="card add-tracker-card">
+                    <div class="card-body">
+                        <p>
+                            <button class="btn btn-primary add-tracker-button" type="button" data-toggle="collapse" data-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
+                              Add trackers
+                            </button>
+                          </p>
+                          <div class="collapse" id="collapseExample">
+                            <div class="card card-body">
+                              <p>Get notified for products in the range of</p>
+                              <form method="POST" action="">
+                                  <div class="row">
+                                    <div class="col">
+                                      <input type="text" class="form-control" placeholder="Min amount">
+                                    </div>
+                                    <div class="col">
+                                      <input type="text" class="form-control" placeholder="Max amount">
+                                    </div>
+                                  </div>
+                                  <p><br>Select categories you would like the price range applied on</p>
+                                  <div class="form-check add-trackers-checkbox">
+                                      <input class="form-check-input" type="checkbox" value="" id="defaultCheck1">
+                                      <label class="form-check-label" for="defaultCheck1">
+                                        Phones and accesories
+                                      </label>
+                                    </div>
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" value="" id="defaultCheck1">
+                                        <label class="form-check-label" for="defaultCheck1">
+                                          Computers and Accesories
+                                        </label>
+                                      </div>
+                                      <div class="form-check">
+                                          <input class="form-check-input" type="checkbox" value="" id="defaultCheck1">
+                                          <label class="form-check-label" for="defaultCheck1">
+                                            Electronics
+                                          </label>
+                                        </div>
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="checkbox" value="" id="defaultCheck1">
+                                            <label class="form-check-label" for="defaultCheck1">
+                                              Home and Living
+                                            </label>
+                                          </div>
+                                          <div class="form-check">
+                                              <input class="form-check-input" type="checkbox" value="" id="defaultCheck1">
+                                              <label class="form-check-label" for="defaultCheck1">
+                                                Fashion
+                                              </label>
+                                            </div>
+                                    <input type="submit" class="btn track-product-button" value="Track">
+                                </form>
+                              </div>
+                          </div>
+                    </div>
+                  </div>
               </div>
               <div class="col-sm-5">
                 <div class="card">
@@ -63,6 +119,9 @@
         </div>
 
     </section>
+    <footer class="footer">
+        <p>Powered by <a href="https://github.com/coderjaymoh">coderjaymoh</a></p>
+      </footer>
 
     <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
@@ -77,7 +136,7 @@
 
   <style>
       nav{
-        background-color: rgb(0, 177, 131);
+        background-color: rgb(0, 203, 137);
       }
 
       .main{
@@ -128,12 +187,46 @@
       margin-top: 50px;
       border: none;
     }
+
+    .add-tracker-card{
+      border-top: none;
+    }
+
+    .add-product-card{
+      border-bottom: none;
+    }
+
+    .add-tracker-button{
+      color: rgb(0, 189, 134);
+      background-color: white;
+      border-color: gray;
+    }
+
+    .add-tracker-button:hover{
+      background-color: rgb(0, 189, 134);
+      border: solid 1px rgb(0, 189, 134);
+    }
+
+    .add-trackers-checkbox{
+      margin-top: 20px;
+    }
+
+    .footer{
+      padding: 15px 0px 5px 0px;
+      text-align: center;
+      background: rgb(0, 203, 137);
+    }
   </style>
 
   <script>
+
+    // On body load fetch
+    function load() {
+        console.log("load event detected!");
+      }
+      window.onload = load;
      
      $(function() {
-
 
 // Submit post on submit
 $('#track-product-form').on('submit', function(event){
