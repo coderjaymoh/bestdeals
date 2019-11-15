@@ -9,7 +9,7 @@
     <!-- <link rel="stylesheet" href="{% static 'css/style.css'%}"> -->
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-    <!-- <link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}"> -->
+    <link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}">
     
 
     <title>Be informed about the best deals on online shops</title>
@@ -108,6 +108,7 @@
                   <div class="card-body added-to-cart">
                     <h5 class="card-title">🛒 Added to cart</h5>
                     <p class="card-text" id="cart">
+          
                     </p>
                   </div>
                 
@@ -118,7 +119,7 @@
                       {% csrf_token %}
                       <div class="form-group">
                           <label for="exampleInputPassword1">Phone Number</label>
-                          <input type="tel" class="form-control" name="user_phone" id="exampleInputPassword1" placeholder="0712345789" required>
+                          <input type="tel" class="form-control" name="user_phone" id="clientphone" placeholder="0712345789" required>
                           <small id="numberHelp" class="form-text text-muted">Your number is only used to send you notifications.</small>
                       </div>
                       <input type="submit" class="btn signup-button" value="Sign up">
@@ -146,55 +147,6 @@
       </footer>
       
 
-      <script>
-        var cartItems = []
-
-        window.onload = function() {
-          if (cartItems.length < 1) {
-            $('#cart').append("<strong class='text-muted'>You have not added anything to cart</strong><br>");
-          }
-          document.getElementById("track-product-button").onclick = function fun() {
-            if (document.getElementById('product').value != "") {
-            var item = document.getElementById('product').value;
-            cartItems.push(item);
-            count = cartItems.length - 1;
-            if (cartItems.length == 1) {
-                $('#cart').html('')
-              }
-            $('#cart').append("<div class='justahack-"+cartItems[count]+"' id='newCartItem'>📌 " + cartItems[count] + "<b id='remove'>❌</b></div>");
-          }
-          
-
-          }
-          $('#cart').on('click', '#remove', function () {
-            console.log(cartItems)
-            itemToRemove = $('#newCartItem').attr('class');
-            toRemove = itemToRemove.split('justahack-')[1];
-            cartItems = cartItems.filter(item => item !== toRemove)
-            $('#newCartItem').remove();
-            console.log(cartItems)
-          });
-        }
-
-      //   window.onload = function (){
-      //     var addedItem = document.getElementById('product')
-      //     document.getElementById('track-product-button').onclick() = function addToCart(){
-      //     cartItems.push(addedItem)
-      //     alert('rtyuiopoiuy')
-      //     console.log(cartItems)
-      //   }
-      // }
-      </script>
-      <style>
-        #newCartItem{
-          cursor: pointer;
-        }
-
-        #remove{
-          float: right;
-          opacity: .7;
-        }
-      </style>
 
     <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
@@ -202,7 +154,7 @@
     <!-- <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script> -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
-    <!-- <script src="{% static 'js/main.js' %}"></script> -->
+    <script src="{% static 'js/main.js' %}"></script>
   </body>
   <style>
     .track-product-button{
