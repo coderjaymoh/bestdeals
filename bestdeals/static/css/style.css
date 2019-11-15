@@ -36,7 +36,6 @@ nav{
   .track-product-button{
     margin-top: 20px;
     float: right;
-    background: red;
     border: solid 2px rgb(0, 136, 115) ;
     color: rgb(0, 136, 115);
 }
@@ -66,6 +65,14 @@ nav{
   border-color: gray;
 }
 
+.signup-button{
+  border: solid 2px rgb(0, 189, 134);
+}
+
+.signup-button:hover{
+  border: solid 2px rgb(0, 189, 134);
+}
+
 .add-tracker-button:hover{
   background-color: rgb(0, 189, 134);
   border: solid 1px rgb(0, 189, 134);
@@ -75,14 +82,15 @@ nav{
   margin-top: 20px;
 }
 
-#remove{
-  float: right;
-  margin-right: 20px;
-}
-
-#remove:hover{
+#newCartItem{
   cursor: pointer;
 }
+
+#remove{
+  float: right;
+  opacity: .7;
+}
+
 
 .checkout-title{
   color: rgb(0, 189, 134);
