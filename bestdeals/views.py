@@ -12,38 +12,33 @@ def home(request):
 
     if request.method == 'POST':
         print(request.body)
-        phone = request.POST.get('user_phone')
 
-        print(phone)
+        # user = User.objects.filter(user_phone=phone)
+        # if int(phone[1:]) in [User.user_phone for User in user]:
+        #     print('yeas')
 
-        print(int(phone[1:]))
+        #     for each in tracked_item:
+        #         tracked_product = TrackedProduct(
+        #             user = user,
+        #             tracked_product_name = each
+        #         )
 
-        user = User.objects.filter(user_phone=phone)
-        if int(phone[1:]) in [User.user_phone for User in user]:
-            print('yeas')
+        # else:
+        #     print('welcome new User') 
+        #     new_user = User(
+        #         user_phone = int(phone[1:])
+        #     )  
+        #     new_user.save()
 
-            for each in tracked_item:
-                tracked_product = TrackedProduct(
-                    user = user,
-                    tracked_product_name = each
-                )
+        #     user = User.objects.filter(user_phone=phone)
 
-        else:
-            print('welcome new User') 
-            new_user = User(
-                user_phone = int(phone[1:])
-            )  
-            new_user.save()
+        #     for each in tracked_item:
+        #         tracked_product = TrackedProduct(
+        #             user = user,
+        #             tracked_product_name = each
+        #         )
 
-            user = User.objects.filter(user_phone=phone)
-
-            for each in tracked_item:
-                tracked_product = TrackedProduct(
-                    user = user,
-                    tracked_product_name = each
-                )
-
-                tracked_product.save()
+        #         tracked_product.save()
 
     # scrape = Scrape()
     # flashsales = scrape.get_flashsales()
@@ -53,17 +48,23 @@ def home(request):
 
 def ajax(request):
     if request.method == 'POST':
-        item = request.POST.get('track_item')
-        user = User.objects.get(user_name='Jaymoh')
+        print(request.body)
+        print(request.POST)
+        print(request.POST.get('phone'))
+        print(request.POST.get('trackedItem'))
+        # item = request.POST.get('track_item')
+        # user = User.objects.get(user_name='Jaymoh')
 
-        response_data = {}
+        # response_data = {}
 
-        product = TrackedProduct(user=user, tracked_product_name=item)
-        product.save()
+        # product = TrackedProduct(user=user, tracked_product_name=item)
+        # product.save()
 
-        response_data['result'] = 'Create post successful!'
-        response_data['item'] = product.tracked_product_name        
+        # response_data['result'] = 'Create post successful!'
+        # response_data['item'] = product.tracked_product_name        
 
+        response_data = {'me': 3553}
+        
         return JsonResponse(response_data)
 
 
