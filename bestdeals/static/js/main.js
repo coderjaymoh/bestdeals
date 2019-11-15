@@ -1,21 +1,41 @@
-document.getElementById('remove').onclick = function changeContent() {
-    console.log(document.getElementById('newCartItem'))
+// Adding and removing items from cart
+$(document).ready(function () {
 
-    document.getElementById('newCartItem').hidden = true;
-    
-    }
-            
-        // On body load fetch
-        function load() {
-            console.log("load event detected!");
-          }
-          window.onload = load;
-         
-         $(function() {
-    });
-    
-    // Submit post on submit
-    $('#track-product-form').on('submit', function(event){
+var cartItems = []
+
+window.onload = function () {
+	if (cartItems.length < 1) {
+		$('#cart').append("<strong class='text-muted'>You have not added anything to cart</strong><br>");
+	}
+	document.getElementById("track-product-button").onclick = function fun() {
+		if (document.getElementById('product').value != "") {
+			var item = document.getElementById('product').value;
+			cartItems.push(item);
+			count = cartItems.length - 1;
+			if (cartItems.length == 1) {
+				$('#cart').html('')
+			}
+			$('#cart').append("<div class='justahack-" + cartItems[count] + "' id='newCartItem'>📌 " + cartItems[count] + "<b id='remove'>❌</b></div>");
+		}
+
+
+		// FIXME Removes the wrong item
+	}
+	$('#cart').on('click', '#remove', function () {
+		console.log(cartItems)
+		itemToRemove = $('#newCartItem').attr('class');
+		toRemove = itemToRemove.split('justahack-')[1];
+		cartItems = cartItems.filter(item => item !== toRemove)
+		$('#newCartItem').remove();
+		console.log(cartItems)
+	});
+}
+
+  
+    // REVIEW: Changed make ajax POST on checkout button to be revisited
+		
+		// Sending item to view using ajax
+    $('#checkout').on('submit', function(event){
         event.preventDefault();
         console.log("form submitted!")  // sanity check
         create_post();
@@ -23,11 +43,14 @@ document.getElementById('remove').onclick = function changeContent() {
     
     // AJAX for posting
     function create_post() {
-        console.log("create post is working!") // sanity check
+				console.log(JSON.stringify(cartItems))
+				console.log("create post is working!") // sanity check
+			clientPhone = ($('#clientphone').val());
+
         $.ajax({
             url : "/ajax", // the endpoint
             type : "POST", // http method
-            data : { track_item : $('#product').val() }, // data sent with the post request
+					data: { 'phone': clientPhone, 'trackedItem': JSON.stringify(cartItems)}, // data sent with the post request
             // handle a successful response
             success : function(json) {
                 $('#product').val(''); // remove the value from the input
@@ -97,4 +120,4 @@ document.getElementById('remove').onclick = function changeContent() {
             }
         }
     });
-    
+});
