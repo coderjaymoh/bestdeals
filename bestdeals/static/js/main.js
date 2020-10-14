@@ -1,9 +1,9 @@
-document.getElementById('remove').onclick = function changeContent() {
+$('#remove').on('click', function changeContent() {
     console.log(document.getElementById('newCartItem'))
 
     document.getElementById('newCartItem').hidden = true;
     
-    }
+    });
             
         // On body load fetch
         function load() {

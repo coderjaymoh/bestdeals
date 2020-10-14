@@ -1,176 +1,267 @@
+{% include 'shared/base.html' %}
 {% load static %}
-<!doctype html>
-<html lang="en">
-  <head>
-    <!-- Required meta tags -->
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+{% block content %}
 
-    <!-- <link rel="stylesheet" href="{% static 'css/style.css'%}"> -->
-    <!-- Bootstrap CSS -->
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-    <link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}">
-    
+<body>
+  <!-- style nav -->
+  <nav class="navbar">
+    <span class="navbar-brand mb-0 h1"><b>BestDeals</b></span>
+  </nav>
 
-    <title>Be informed about the best deals on online shops</title>
-  </head>
-  <body>
-
-    <!-- style nav -->
-    <nav class="navbar">
-        <span class="navbar-brand mb-0 h1"><b>BestDeals</b></span>
-    </nav>
-
-    <section>
-      <div class="main">
-          <div class="card description">
-              <div class="card-body">
-                <p class="card-text">The festive seasons is here! And as we all know it comes with amazing product deals. <b><i>BestDeals</i></b> ensures the best deals on online stores dont pass you.
-                Get notified when a there is an amazing offer on your favourite product.
-              </p>
-              <p><b>How it works</b><br>
-                Just enter a name of a product you would like to track and 
-                then sit and wait whenever there is an amazing deal on the product we will notify you 💬
-              </p>
-              </div>
-            </div>
-          <div class="row">
-              <div class="col-sm-6">
-                <div class="card add-product-card">
-                  <div class="card-body">
-                    <h5 class="card-title">➕ Add products to track</h5>
-                    {% csrf_token %}
-                    <form action="" method="" id="track-product-form">
-                    <input type="text" class="form-control product" name="product" id="product" placeholder="Eg. Watch, shoes" required>
-                    <button type="reset" id="track-product-button" class="btn track-product-button">Track</button>
-                  </form>
-                  </div>
-                </div>
-                <div class="card add-tracker-card">
-                    <div class="card-body">
-                        <p>
-                            <button class="btn btn-primary add-tracker-button" type="button" data-toggle="collapse" data-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
-                              Add trackers
-                            </button>
-                          </p>
-                          <div class="collapse" id="collapseExample">
-                            <div class="card card-body">
-                              <p>Get notified for products in the range of</p>
-                              <form method="POST" action="">
-                                  <div class="row">
-                                    <div class="col">
-                                      <input type="text" class="form-control" placeholder="Min amount">
-                                    </div>
-                                    <div class="col">
-                                      <input type="text" class="form-control" placeholder="Max amount">
-                                    </div>
-                                  </div>
-                                  <p><br>Select categories you would like the price range applied on</p>
-                                  <div class="form-check add-trackers-checkbox">
-                                      <input class="form-check-input" type="checkbox" value="" id="defaultCheck1">
-                                      <label class="form-check-label" for="defaultCheck1">
-                                        Phones and accesories
-                                      </label>
-                                    </div>
-                                    <div class="form-check">
-                                        <input class="form-check-input" type="checkbox" value="" id="defaultCheck1">
-                                        <label class="form-check-label" for="defaultCheck1">
-                                          Computers and Accesories
-                                        </label>
-                                      </div>
-                                      <div class="form-check">
-                                          <input class="form-check-input" type="checkbox" value="" id="defaultCheck1">
-                                          <label class="form-check-label" for="defaultCheck1">
-                                            Electronics
-                                          </label>
-                                        </div>
-                                        <div class="form-check">
-                                            <input class="form-check-input" type="checkbox" value="" id="defaultCheck1">
-                                            <label class="form-check-label" for="defaultCheck1">
-                                              Home and Living
-                                            </label>
-                                          </div>
-                                          <div class="form-check">
-                                              <input class="form-check-input" type="checkbox" value="" id="defaultCheck1">
-                                              <label class="form-check-label" for="defaultCheck1">
-                                                Fashion
-                                              </label>
-                                            </div>
-                                    <input type="submit" class="btn track-product-button" value="Track">
-                                </form>
-                              </div>
-                          </div>
-                    </div>
-                  </div>
-              </div>
-              <div class="col-sm-6">
-                <div class="card">
-                  <div class="card-body added-to-cart">
-                    <h5 class="card-title">🛒 Added to cart</h5>
-                    <p class="card-text" id="cart">
-          
-                    </p>
-                  </div>
-                
-                <div class="card-body">
-                  <h5 class="card-title checkout-title"><b>Checkout</b></h5>
-                  <p>So as to start tracking your products enter your phone number below. We will only use the number to notify you when there is a good deal on the products</p> 
-                  <form method="POST" id="checkout" action="">
-                      {% csrf_token %}
-                      <div class="form-group">
-                          <label for="exampleInputPassword1">Phone Number</label>
-                          <input type="tel" class="form-control" name="user_phone" id="clientphone" placeholder="0712345789" required>
-                          <small id="numberHelp" class="form-text text-muted">Your number is only used to send you notifications.</small>
-                      </div>
-                      <input type="submit" class="btn signup-button" value="Sign up">
-                  </form>
-                </div>
-              </div>
-                <div class="card">
-                  <div class="card-body">
-                      <h5 class="card-title">📋 Currently Tracking</h5>
-                    
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div class="card ads">
-                <div class="card-body">
-                  <h5 class="card-title">🔥 Amazing deals</h5>
-                </div>
-              </div>
+  <section>
+    <div class="main">
+      <div class="card description">
+        <div class="card-body">
+          <p class="card-text">The festive seasons is here! And as we all know it comes with amazing product deals.
+            <b><i>BestDeals</i></b> ensures the best deals on online stores dont pass you.
+            Get notified when a there is an amazing offer on your favourite product.
+          </p>
+          <p><b>How it works</b><br>
+            Just enter a name of a product you would like to track and
+            then sit and wait whenever there is an amazing deal on the product we will notify you 💬
+          </p>
         </div>
+      </div>
+      <div class="row">
+        <div class="col-sm-6">
+          <div class="card add-product-card">
+            <div class="card-body">
+              <h5 class="card-title">➕ Add products to track</h5>
+              <form action="" method="POST" id="track-product-form">
+                <input type="text" class="form-control product" name="product" id="product"
+                  placeholder="Eg. Watch, shoes" required>
+                <button type="submit" id="track-product-button" class="btn track-product-button">Track</button>
+              </form>
+            </div>
+          </div>
+          <div class="card add-tracker-card">
+            <div class="card-body">
+              <p>
+                <button class="btn btn-primary add-tracker-button" type="button" data-toggle="collapse"
+                  data-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
+                  Add trackers
+                </button>
+              </p>
+              <div class="collapse" id="collapseExample">
+                <div class="card card-body">
+                  <p>Get notified for products in the range of</p>
+                  <form method="POST" action="">
+                    <div class="row">
+                      <div class="col">
+                        <input type="text" class="form-control" placeholder="Min amount">
+                      </div>
+                      <div class="col">
+                        <input type="text" class="form-control" placeholder="Max amount">
+                      </div>
+                    </div>
+                    <p><br>Select categories you would like the price range applied on</p>
+                    <div class="form-check add-trackers-checkbox">
+                      <input class="form-check-input" type="checkbox" value="" id="defaultCheck1">
+                      <label class="form-check-label" for="defaultCheck1">
+                        Phones and accesories
+                      </label>
+                    </div>
+                    <div class="form-check">
+                      <input class="form-check-input" type="checkbox" value="" id="defaultCheck1">
+                      <label class="form-check-label" for="defaultCheck1">
+                        Computers and Accesories
+                      </label>
+                    </div>
+                    <div class="form-check">
+                      <input class="form-check-input" type="checkbox" value="" id="defaultCheck1">
+                      <label class="form-check-label" for="defaultCheck1">
+                        Electronics
+                      </label>
+                    </div>
+                    <div class="form-check">
+                      <input class="form-check-input" type="checkbox" value="" id="defaultCheck1">
+                      <label class="form-check-label" for="defaultCheck1">
+                        Home and Living
+                      </label>
+                    </div>
+                    <div class="form-check">
+                      <input class="form-check-input" type="checkbox" value="" id="defaultCheck1">
+                      <label class="form-check-label" for="defaultCheck1">
+                        Fashion
+                      </label>
+                    </div>
+                    <input type="submit" class="btn track-product-button" value="Track">
+                  </form>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-sm-6">
+          <div class="card">
+            <div class="card-body added-to-cart">
+              <h5 class="card-title">🛒 Added to cart</h5>
+              <p class="card-text" id="cart">
 
-    </section>
-    <footer class="footer">
-        <p>Powered by <a href="https://github.com/coderjaymoh">coderjaymoh</a></p>
-      </footer>
-      
+              </p>
+            </div>
+
+            <div class="card-body">
+              <h5 class="card-title checkout-title"><b>Checkout</b></h5>
+              <p>So as to start tracking your products enter your phone number below. We will only use the number to
+                notify you when there is a good deal on the products</p>
+              <form method="POST" id="checkout" action="">
+                {% csrf_token %}
+                <div class="form-group">
+                  <label for="exampleInputPassword1">Phone Number</label>
+                  <input type="tel" class="form-control" name="user_phone" id="clientphone" placeholder="0712345789"
+                    required>
+                  <small id="numberHelp" class="form-text text-muted">Your number is only used to send you
+                    notifications.</small>
+                </div>
+                <input type="submit" class="btn signup-button" value="Sign up">
+              </form>
+            </div>
+          </div>
+          <div class="card">
+            <div class="card-body">
+              <h5 class="card-title">📋 Currently Tracking</h5>
+
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="card ads">
+        <div class="card-body">
+          <h5 class="card-title">🔥 Amazing deals</h5>
+        </div>
+      </div>
+    </div>
+
+  </section>
+  <footer class="footer">
+    <p>Powered by <a href="https://github.com/coderjaymoh">coderjaymoh</a></p>
+  </footer>
+
+</body>
+
+{% endblock content %}
+
+  <script>
+    $('#remove').on('click', function changeContent() {
+      console.log(document.getElementById('newCartItem'))
+
+      document.getElementById('newCartItem').hidden = true;
+
+    });
+
+    // On body load fetch
+    function load() {
+      console.log("load event detected!");
+    }
+    window.onload = load;
+
+    $(function () {
+    });
+
+    // Submit post on submit
+    $('#track-product-form').on('submit', function (event) {
+      event.preventDefault();
+      console.log("form submitted!")  // sanity check
+      create_post();
+    });
+
+    // AJAX for posting
+    function create_post() {
+      console.log("create post is working!") // sanity check
+      $.ajax({
+        url: "", // the endpoint
+        type: "POST", // http method
+        data: { track_item: $('#product').val() }, // data sent with the post request
+        // handle a successful response
+        success: function (json) {
+          $('#product').val(''); // remove the value from the input
+          console.log(json); // log the returned json to the console
+          var emptystr = ''
+          $("#notfound").replaceWith(emptystr)
+          $("#cart").prepend("<strong id='newCartItem'>👉  " + json.me + " <b id='remove'>❌</b></strong><br>");
+          console.log("success"); // another sanity check
+        },
+        // handle a non-successful response
+        error: function (xhr, errmsg, err) {
+          $('#results').html("<div class='alert-box alert radius' data-alert>Oops! We have encountered an error: " + errmsg +
+            " <a href='#' class='close'>&times;</a></div>"); // add the error to the dom
+          console.log(xhr.status + ": " + xhr.responseText); // provide a bit more info about the error to the console
+        }
+      });
+    };
 
 
-    <!-- Optional JavaScript -->
-    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
-    <script src="https://code.jquery.com/jquery-3.4.1.js" integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU=" crossorigin="anonymous"></script>
-    <!-- <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script> -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
-    <script src="{% static 'js/main.js' %}"></script>
-  </body>
-  <style>
-    .track-product-button{
-      border: solid 2px rgb(0, 189, 134);
+    // This function gets cookie with a given name
+    function getCookie(name) {
+      var cookieValue = null;
+      if (document.cookie && document.cookie != '') {
+        var cookies = document.cookie.split(';');
+        for (var i = 0; i < cookies.length; i++) {
+          var cookie = jQuery.trim(cookies[i]);
+          // Does this cookie string begin with the name we want?
+          if (cookie.substring(0, name.length + 1) == (name + '=')) {
+            cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+            break;
+          }
+        }
+      }
+      return cookieValue;
+    }
+    var csrftoken = getCookie('csrftoken');
+
+    /*
+    The functions below will create a header with csrftoken
+    */
+
+    function csrfSafeMethod(method) {
+      // these HTTP methods do not require CSRF protection
+      return (/^(GET|HEAD|OPTIONS|TRACE)$/.test(method));
+    }
+    function sameOrigin(url) {
+      // test that a given url is a same-origin URL
+      // url could be relative or scheme relative or absolute
+      var host = document.location.host; // host + port
+      var protocol = document.location.protocol;
+      var sr_origin = '//' + host;
+      var origin = protocol + sr_origin;
+      // Allow absolute or scheme relative URLs to same origin
+      return (url == origin || url.slice(0, origin.length + 1) == origin + '/') ||
+        (url == sr_origin || url.slice(0, sr_origin.length + 1) == sr_origin + '/') ||
+        // or any other URL that isn't scheme relative or absolute i.e relative.
+        !(/^(\/\/|http:|https:).*/.test(url));
     }
 
-    .signup-button{
-      border: solid 2px rgb(0, 189, 134);
-    }
+    $.ajaxSetup({
+      beforeSend: function (xhr, settings) {
+        if (!csrfSafeMethod(settings.type) && sameOrigin(settings.url)) {
+          // Send the token to same-origin, relative URLs only.
+          // Send the token only if the method warrants CSRF protection
+          // Using the CSRFToken value acquired earlier
+          xhr.setRequestHeader("X-CSRFToken", csrftoken);
+        }
+      }
+    });
 
-    .signup-button:hover{
-      color: white;
-      background-color: rgb(0, 189, 134);
-      border: solid 2px rgb(0, 189, 134) ;
-    }
-  </style>
+  </script>
 
-  
+
+
+<style>
+  .track-product-button {
+    border: solid 2px rgb(0, 189, 134);
+  }
+
+  .signup-button {
+    border: solid 2px rgb(0, 189, 134);
+  }
+
+  .signup-button:hover {
+    color: white;
+    background-color: rgb(0, 189, 134);
+    border: solid 2px rgb(0, 189, 134);
+  }
+</style>
+
+
 </html>

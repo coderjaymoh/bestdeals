@@ -11,6 +11,7 @@ def home(request):
     tracked_products = TrackedProduct.objects.all()
 
     if request.method == 'POST':
+        print('request')
         print(request.body)
 
         # user = User.objects.filter(user_phone=phone)
@@ -48,6 +49,7 @@ def home(request):
 
 def ajax(request):
     if request.method == 'POST':
+        print('ajax')
         print(request.body)
         print(request.POST)
         print(request.POST.get('phone'))

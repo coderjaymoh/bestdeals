@@ -3,11 +3,10 @@ from bestdeals.models import Flashsale
 import pprint
 
 class Scrape:
-    # driver = webdriver.Chrome('/home/jaymoh/projects/personal/selenium/bestdeals/chromedriver')
-
-    # scraped and foomatted
+    # scraped and formatted
     def get_flashsales(self):
-        driver = self.driver
+        driver = webdriver.Chrome('/home/jaymoh/projects/personal/selenium/bestdeals/chromedriver')
+        # driver = self.driver
         # flashsale_url = 'file:///home/jaymoh/projects/personal/selenium/bestdeals/Flash%20Sale%20_%20Kilimall.html'
         flashsale_url = 'https://www.kilimall.co.ke/new/flash-sales'
         driver.get(flashsale_url)
@@ -27,10 +26,11 @@ class Scrape:
             for each in flashsale_products:
                 formatted_flashsale_products.append(each.split('\n'))
 
-            # pprint.pprint(formatted_flashsale_products)
+            pprint.pprint(formatted_flashsale_products)
 
         return formatted_flashsale_products
 
+    # Saving to db
     def save_to_db(self, formatted_flashsale_products):
         for each in formatted_flashsale_products:
             # pprint.pprint(each)
