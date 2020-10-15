@@ -1,6 +1,6 @@
 from django.contrib import admin
-from bestdeals.models import Flashsale, User, TrackedProduct
+from bestdeals.models import User, ScrapedProduct, UserProduct
 
-admin.site.register(Flashsale)
 admin.site.register(User)
-admin.site.register(TrackedProduct)
+admin.site.register(UserProduct)
+admin.site.register(ScrapedProduct)

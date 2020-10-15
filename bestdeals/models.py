@@ -11,14 +11,23 @@ class BaseModel(models.Model):
 
 # Flashsale models
 
+
 class User(BaseModel):
-    user_name = models.CharField(max_length=100, null=True, blank=True)
     user_phone = models.IntegerField()
 
     def __str__(self):
         return str(self.user_phone)
 
-class Flashsale(BaseModel):
+
+class UserProduct(BaseModel):
+    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name="users")
+    tracked_product = models.CharField(max_length=100)
+
+    def __str__(self):
+        return str(self.user.user_phone)
+
+
+class ScrapedProduct(BaseModel):
     product_descriptions = models.CharField(max_length=200)
     products_left = models.CharField(max_length=100, null=True, blank=True)
     product_price = models.CharField(max_length=100)
