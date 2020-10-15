@@ -10,9 +10,10 @@ import pprint
 def home(request):
     tracked_products = TrackedProduct.objects.all()
 
-    if request.method == 'POST':
+
+    if request.method == 'POST' and 'track_button' in request.POST:
         print('request')
-        print(request.body)
+        print(request.POST)
 
         # user = User.objects.filter(user_phone=phone)
         # if int(phone[1:]) in [User.user_phone for User in user]:

@@ -2,6 +2,8 @@
 {% load static %}
 {% block content %}
 
+<script src="https://cdn.jsdelivr.net/npm/js-cookie@rc/dist/js.cookie.min.js"></script>
+
 <body>
   <!-- style nav -->
   <nav class="navbar">
@@ -12,6 +14,7 @@
     <div class="main">
       <div class="card description">
         <div class="card-body">
+          <div class="alerts" id="alert"></div>
           <p class="card-text">The festive seasons is here! And as we all know it comes with amazing product deals.
             <b><i>BestDeals</i></b> ensures the best deals on online stores dont pass you.
             Get notified when a there is an amazing offer on your favourite product.
@@ -28,7 +31,8 @@
             <div class="card-body">
               <h5 class="card-title">➕ Add products to track</h5>
               <form action="" method="POST" id="track-product-form">
-                <input type="text" class="form-control product" name="product" id="product"
+                {% csrf_token %}
+                <input type="text" class="form-control product" name="product" id="product-input"
                   placeholder="Eg. Watch, shoes" required>
                 <button type="submit" id="track-product-button" class="btn track-product-button">Track</button>
               </form>
@@ -95,10 +99,16 @@
         <div class="col-sm-6">
           <div class="card">
             <div class="card-body added-to-cart">
-              <h5 class="card-title">🛒 Added to cart</h5>
-              <p class="card-text" id="cart">
+              <div class="cart-header mb-4">
+                <h5 class="card-title">🛒 Added to cart</h5>
+                <div class="mb-3">
+                  <button class="btn btn-outline-danger float-right" id="clear-cart">Clear cart</button></br>
+                </div>
 
+              </div>
+              <p class="card-text container" id="cart">
               </p>
+              <p class="text-muted mt-3 text-center">Items in the cart are not currently being tracked</p>
             </div>
 
             <div class="card-body">
@@ -109,12 +119,13 @@
                 {% csrf_token %}
                 <div class="form-group">
                   <label for="exampleInputPassword1">Phone Number</label>
+                  <input type="text" name="products_to_track" id="cookie_input">
                   <input type="tel" class="form-control" name="user_phone" id="clientphone" placeholder="0712345789"
                     required>
                   <small id="numberHelp" class="form-text text-muted">Your number is only used to send you
                     notifications.</small>
                 </div>
-                <input type="submit" class="btn signup-button" value="Sign up">
+                <input type="submit" class="btn signup-button" name="track_button" id="submit" value="Sign up">
               </form>
             </div>
           </div>
@@ -142,7 +153,61 @@
 
 {% endblock content %}
 
-  <script>
+<script>
+  $(document).ready(function () {
+    read_from_cookie();
+  });
+
+  $('#track-product-form').on('submit', function (event) {
+    add_to_cookie();
+    $('#product-input').val('')
+  });
+
+
+  function add_to_cookie() {
+    var product = $('#product-input').val()
+
+    // Add items to cookie
+    if (typeof Cookies.get('items') === 'undefined') {
+      Cookies.set('items', String(product))
+    } else {
+      var cookied_products = Cookies.get('items')
+      Cookies.set('items', cookied_products + ',' + String(product))
+    }
+    // Add cookie items to input
+    // $('#cookie_input').val(Cookies.get('items'))
+
+  }
+
+  // Display cookied data
+  function read_from_cookie() {
+    console.log(Cookies.get('items'))
+    if (typeof Cookies.get('items') != 'undefined') {
+      var stored_items = Cookies.get('items').split(',')
+      $.each(stored_items, function (index, value) {
+        $("#cart").append("<div><b value='3' class='single-item mb-2'>" + value + '<span id="remove">❌</span></br></b><div>');
+      });
+    }
+  }
+
+  $('#clear-cart').on('click', function () {
+    $('#cart').remove()
+    Cookies.remove('items')
+    console.log(Cookies.get('items'))
+    $('#alerts').append("<div class='alert alert-success' role='alert'>This is a success alert—check it out!</div >")
+  });
+
+  $('#submit').on('click', function () {
+    $('#cookie_input').val(Cookies.get('items'));
+  });
+
+  // Preventing POST requets on page refresh
+  if (window.history.replaceState) {
+    window.history.replaceState(null, null, window.location.href);
+  }
+</script>
+
+<!-- <script>
     $('#remove').on('click', function changeContent() {
       console.log(document.getElementById('newCartItem'))
 
@@ -243,7 +308,7 @@
       }
     });
 
-  </script>
+  </script> -->
 
 
 
